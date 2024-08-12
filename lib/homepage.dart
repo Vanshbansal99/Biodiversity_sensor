@@ -700,6 +700,65 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
   Widget build(BuildContext context){
     final screenWidth =MediaQuery.of(context).size.width;
      final String deviceId;
+  const Lab = 'Lab';
+  const Germany='Germany';
+  const Switzerland='Switzerland';
+  const Spain='Spain';
+  const France='France';
+  const UK='UK';
+ const USA='USA';
+ const India='India'; 
+  const Australia='Australia';
+ 
+ 
+  var USADevices = ['02', '05', '04','06'];
+  var LabDevices = ['66', '62'];
+  var GermanyDevices=['bf','22','15','16','S4','S23','S21','S11','S14'];
+  var SwitzerlandDevices=['44','26'];
+  var SpainDevices=['D1003','D1004','D1005'];
+  var FranceDevices=['D0500','D0501','D0502','D0503','D0504','D0505'];
+  var UKDevices=['02', '05', '04','112','114','115'];
+  var IndiaDevices=['07', '08','09','11','12','S1','S2','10'];
+  var AustraliaDevices=['46', '47', '48', '49', '50', '51', '52', '53'];
+
+  var deviceCountryMap = Map.fromIterable(
+    USADevices,
+    value: (_) => USA,
+  )
+    ..addAll(Map.fromIterable(
+      LabDevices,
+      value: (_) => Lab,
+    ))
+    ..addAll(Map.fromIterable(
+      GermanyDevices,
+      value: (_) => Germany,
+    ))
+    ..addAll(Map.fromIterable(
+      SwitzerlandDevices,
+      value: (_) => Switzerland,
+    ))
+    ..addAll(Map.fromIterable(
+      SpainDevices,
+      value: (_) => Spain,
+    ))
+    ..addAll(Map.fromIterable(
+      FranceDevices,
+      value: (_) => France,
+    ))
+    ..addAll(Map.fromIterable(
+      UKDevices,
+      value: (_) => UK,
+    ))
+    ..addAll(Map.fromIterable(
+      IndiaDevices,
+      value: (_) => India,
+    ))
+    ..addAll(Map.fromIterable(
+      AustraliaDevices,
+      value: (_) => Australia,
+    ))
+
+    ;
     return new Scaffold(
         appBar: AppBar(
           title: Image.asset("assets/logo.png",
@@ -755,7 +814,7 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
                       ,style: TextStyle(fontSize: 20),),
                       onTap: (){
                         Navigator.of(context).push(
-                         MaterialPageRoute(builder: (context)=> FirstPage()) 
+                         MaterialPageRoute(builder: (context)=> HomePage(email: 'milanpreetkaur502@gmail.com')) 
                         );
                       },
                     ),
@@ -833,7 +892,8 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
           );
         },
                   
-                  child: Container(                            //c1
+                  child: Container(        
+                    margin: EdgeInsets.all(20),                     //c1
                                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.0),
                         color: Color.fromARGB(255, 152, 207, 158,),
@@ -849,7 +909,7 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
                   
                              
                     height: 450,
-                    width: (screenWidth* 0.5)-20,
+                    width: (screenWidth* 0.5)-60,
                     // color: Colors.blue[50],
                         child:Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -864,11 +924,16 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
                             // SizedBox(height: 10,),
                           
                            Container(
-                            height: 386,
+                            decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.0),),
+                            width:(screenWidth* 0.5)-60,
+                            height: 370,
                             child: FlutterMap(
                               options: MapOptions(
                                 center: LatLng(20.5937, 78.9629),
                                 zoom: 5.0,
+                                minZoom: 3.0,
+                                maxZoom: 18.0,
                               ),
                               children: [
                                 TileLayer(
@@ -944,6 +1009,13 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
                                   text: activeDeviceData[i].deviceId,
                                   style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
                                 ),
+                                TextSpan(
+                                    text:
+                                        " [ ${(deviceCountryMap[activeDeviceData[i].deviceId])} ]",
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.normal),
+                                  ),
                               ],
                             ),
                           )])
@@ -965,9 +1037,9 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
               color: Color.fromARGB(255, 126, 161, 169),
               child: Row(children: [      
                 Container(              //container 3 c3
-                    
+                   margin: EdgeInsets.all(20),      
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
+                      borderRadius: BorderRadius.circular(14.0),
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
@@ -979,7 +1051,7 @@ void _downloadAllImagesaszip() async {      //code for downloading zip file of i
                       ],
                     ),
                   height: 450,
-                  width:  (screenWidth* 0.5)-20,  
+                  width:  (screenWidth* 0.5)-60,  
                     
                   child: 
                   Column(children: [
@@ -1071,7 +1143,7 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                           },
                         ),
                     ), */
-                    Expanded(
+                  /*  Expanded(
                       child: DropdownButtonFormField<String>(       //with sub dropdowns
                         decoration: InputDecoration(
                           labelText: 'All Devices',
@@ -1105,12 +1177,66 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                           });
                         },
                       ),
-                    ),
+                    ),*/
+                    Expanded(
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'All Devices',
+                                        border: OutlineInputBorder(
+                                           borderRadius: BorderRadius.circular(10.0), // Adjust the corner radius
+                                              //  borderSide: BorderSide(
+                                                //  color: Colors.blue,
+                                                  //  width: 2.0,
+                                                //  ),
+                                        ),
+                                      ),
+                                      value: _selectedDeviceId != null &&
+                                              activeDeviceData.any((device) =>
+                                                  device.deviceId ==
+                                                  _selectedDeviceId)
+                                          ? _selectedDeviceId
+                                          : null,
+                                      items: [
+                                        for (int i = 0; i < activeDeviceData.length; i++)
+                                          DropdownMenuItem<String>(
+                                            value: activeDeviceData[i].deviceId,
+                                            child: Tooltip(
+                                              message:
+                                          'Last Active: ${activeDeviceData[i].lastActive}',
+                                              child: Text(
+                                                activeDeviceData[i].deviceId,
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                        for (int i = 0; i < inactiveDeviceData.length; i++)
+                                          DropdownMenuItem<String>(
+                                            value: inactiveDeviceData[i].deviceId,
+                                            child: Tooltip(
+                                              message:
+                                          'Last Active: ${inactiveDeviceData[i].lastActive}',
+                                              child: Text(
+                                                inactiveDeviceData[i].deviceId,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          _selectedDeviceId = newValue;
+                                        });
+                                      },
+                                    ),
+                                  ),
                     Expanded(
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'Select country',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
                         value: _selectedCountry,
                         items: countryDeviceIds.keys.map((String country) {
@@ -1164,7 +1290,9 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'Deployed Device Ids (select country)',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
                         value: _deviceIds.contains(_selectedDeviceId) ? _selectedDeviceId : null,
                         items: _deviceIds.map<DropdownMenuItem<String>>((String deviceId) {
@@ -1266,7 +1394,9 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                           },
                           decoration: InputDecoration(
                             labelText: 'Start Date',
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                               borderRadius: BorderRadius.circular(10.0),
+                            ),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 12, horizontal: 16),
                           ),
@@ -1317,7 +1447,9 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                           },
                           decoration: InputDecoration(
                             labelText: 'End Date',
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                               borderRadius: BorderRadius.circular(10.0),
+                            ),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 12, horizontal: 16),
                           ),
@@ -1378,6 +1510,112 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                   // color: Color.fromARGB(255, 15, 140, 193),
                 ),
                 GestureDetector(
+                   onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  insetPadding: EdgeInsets.all(10),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: FullScreenChart4(imageUrls: imageUrls),
+                  ),
+                );
+              },
+            );
+          },
+
+                  child: Container(      
+                     margin: EdgeInsets.all(20),                      //c7
+                    
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 5.0,
+                            spreadRadius: 1.0,
+                            offset: Offset(0.0, 0.0),
+                          ),
+                        ],
+                      ),
+                  
+                    height: 450,
+                    width:  (screenWidth* 0.5)-20,
+                    
+                  
+                    
+                    child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("IMAGES", style: TextStyle(fontWeight: FontWeight.bold),),
+                              Text(""),
+                        Row(children: [
+                          Expanded(
+                             child:Text('Total Images: ${imageUrls.length}',
+                                                       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),),
+                            ),
+                         Expanded(
+                           child: ElevatedButton.icon(
+                                               onPressed: _refreshData,
+                                               style: ElevatedButton.styleFrom(
+                                                 backgroundColor: Color.fromARGB(255, 207, 235, 176), // Set button's background color to blue
+                                               ),
+                                               icon: Icon(Icons.refresh), // Add refresh icon
+                                               label: Text('Get images'),
+                                             ),
+                         ),
+                            ]),
+                               
+                      Expanded(
+                                                       
+                                                       
+                                      child: ListView.builder(
+                                        
+                                        itemCount: imageUrls.length,
+                                        itemBuilder: (context, index) {
+                                                     // Calculate the reversed index
+                                                     int reversedIndex = imageUrls.length - 1 - index;
+                                                     return ListTile(
+                                                       title: Image.network(imageUrls[reversedIndex]),
+                                                     );
+                                        },
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                    Expanded(
+                                        child: ElevatedButton(
+                                                          onPressed: () =>  _downloadAllImagesaszip(),
+                                                          style: ElevatedButton.styleFrom(
+                                                            backgroundColor: Color.fromARGB(255, 207, 235, 176),
+                                                            // Set button's background color to green
+                                                          ),
+                                                          child: Text('Download Images'),
+                                                        ),
+                                      ),
+                  
+                                       Expanded(
+                                         child: ElevatedButton(
+                                                           onPressed: () => _downloadAllurl(),
+                                                           style: ElevatedButton.styleFrom(
+                                                             backgroundColor: Color.fromARGB(255, 207, 235, 176),
+                                                             // Set button's background color to green
+                                                           ),
+                                                           child: Text('Links for Images'),
+                                                         ),
+                                       ),]
+                                    ),
+                                                     
+                               ]
+                    ),
+                    // color: Color.fromARGB(255, 15, 140, 193),
+                  ),
+                ),
+               /* GestureDetector(
                   onTap: () {
           showDialog(
             context: context,
@@ -1528,7 +1766,7 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                     ),
                     // color: Color.fromARGB(255, 85, 146, 15),
                   ),
-                )
+                )*/
               ],),),
               Container(
               height: 500,
@@ -1552,7 +1790,8 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
               },
             );
           },
-                  child: Container(                             //c5
+                  child: Container( 
+                     margin: EdgeInsets.all(20),                                //c5
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.0),
                         color: Colors.white,
@@ -1566,7 +1805,7 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                         ],
                       ),
                     height: 450,
-                    width:  (screenWidth* 0.5)-20,
+                    width:  (screenWidth* 0.5)-60,
                     child: SfCartesianChart(
                               // legend: Legend(
                               //   isVisible: true,
@@ -1900,7 +2139,160 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                   // height: 20,
                   // width: (screenWidth* 0.5)-20 ,
                 // ),
-                GestureDetector(
+                 GestureDetector(
+                  onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                insetPadding: EdgeInsets.all(10),
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: FullScreenChart(chartData: chartData),
+                ),
+              );
+            },
+          );
+        },
+                  child: Container(                          //c4
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 5.0,
+                            spreadRadius: 1.0,
+                            offset: Offset(0.0, 0.0),
+                          ),
+                        ],
+                      ),
+                  
+                    margin: EdgeInsets.all(20),
+                    height: 450,
+                    width:(screenWidth* 0.5)-60 ,
+                    child: SfCartesianChart(
+                  
+                      plotAreaBackgroundColor: Colors.white,
+                      primaryXAxis: CategoryAxis(
+                        title: AxisTitle(
+                          text: 'Time',
+                          textStyle:
+                              TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        labelRotation: 45,
+                      ),
+                      primaryYAxis: NumericAxis(
+                        title: AxisTitle(
+                          text: 'Temperature(°C)',
+                          textStyle:
+                              TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        axisLine: AxisLine(width: 0),
+                        majorGridLines: MajorGridLines(width: 0.5),
+                      ),
+                      legend: Legend(
+      isVisible: true,
+      position: LegendPosition.bottom,
+    ),
+                      tooltipBehavior: TooltipBehavior(
+                        enable: true,
+                        color: Colors.white,
+                        // textStyle: TextStyle(color: Colors.white),
+                        builder: (dynamic data,
+                            dynamic point,
+                            dynamic series,
+                            int pointIndex,
+                            int seriesIndex) {
+                          final apiData item = chartData[pointIndex];
+                          return Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 245, 214, 250),
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.purple, blurRadius: 3)
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text("TimeStamp: ${item.TimeStamp}"),
+                                Text("Temperature: ${item.Temperature}"),
+                                // Text("Class: ${item.Class}"),
+                              ],
+                            ),
+                          );
+                        },
+                        // customize the tooltip color
+                      ),
+                      title: ChartTitle(
+                        text: 'Temperature and  Relative humidity ',
+                        textStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      series: <ChartSeries<apiData, String>>[
+                        LineSeries<apiData, String>(
+                          name: 'Temperature',
+                          markerSettings: const MarkerSettings(
+                            height: 3.0,
+                            width: 3.0,
+                            borderColor: Colors.green,
+                            isVisible: true,
+                          ),
+                          dataSource: chartData,
+                          xValueMapper: (apiData sales, _) =>
+                              sales.TimeStamp,
+                          yValueMapper: (apiData sales, _) =>
+                              double.parse(sales.Temperature),
+                          dataLabelSettings:
+                              DataLabelSettings(isVisible: false),
+                          enableTooltip: true,
+                          animationDuration: 0,
+                          color: Colors.green,
+                        ),
+                        LineSeries<apiData, String>(
+                                  name: 'Relative Humidity',
+                                  markerSettings: const MarkerSettings(
+                                    height: 3.0,
+                                    width: 3.0,
+                                    borderColor: Color.fromARGB(255, 218, 96, 9),
+                                    isVisible: true,
+                                  ),
+                                  dataSource: chartData,
+                                  xValueMapper: (apiData sales, _) =>
+                                      sales.TimeStamp,
+                                  yValueMapper: (apiData sales, _) =>
+                                      double.parse(sales.Relative_Humidity),
+                                  dataLabelSettings:
+                                      DataLabelSettings(isVisible: false),
+                                  enableTooltip: true,
+                                  animationDuration: 0,
+                                  color: Color.fromARGB(255, 218, 96, 9),
+                                )
+                      ],
+                      zoomPanBehavior: ZoomPanBehavior(
+                        enablePinching: true,
+                        enablePanning: true,
+                        enableDoubleTapZooming: true,
+                        enableMouseWheelZooming: true,
+                        enableSelectionZooming: true,
+                        selectionRectBorderWidth: 1.0,
+                        selectionRectBorderColor: Colors.blue,
+                        selectionRectColor:
+                            Colors.transparent.withOpacity(0.3),
+                        zoomMode: ZoomMode.x,
+                      ),
+                    ),
+                    // color: Color.fromARGB(255, 85, 146, 15),
+                  ),
+                ),
+
+               /* GestureDetector(
                    onTap: () {
             showDialog(
               context: context,
@@ -1918,7 +2310,8 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
             );
           },
 
-                  child: Container(                        //c7
+                  child: Container(      
+                     margin: EdgeInsets.all(20),                      //c7
                     
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.0),
@@ -1934,7 +2327,7 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                       ),
                   
                     height: 450,
-                    width:  (screenWidth* 0.5)-20,
+                    width:  (screenWidth* 0.5)-60,
                     
                   
                     
@@ -2004,7 +2397,8 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
                     ),
                     // color: Color.fromARGB(255, 15, 140, 193),
                   ),
-                ),
+                ),*/
+                
                Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(16.0),
@@ -2041,7 +2435,6 @@ items: _deviceIds.map<DropdownMenuItem<String>>((String value) {
           decoration: InputDecoration(
             hintText: 'Enter your feedback here',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.0),
             ),
           ),
         ),
